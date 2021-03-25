@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.project.volleyball.BoardMapper">
+	<sql id="find">
+		<if test="findKey=='userid'">
+			where userid like concat('%',#{findValue},'%')
+		</if>
+		<if test="findKey=='subject'">
+			where subject like concat('%',#{findValue},'%')
+		</if>
+		<if test="findKey=='content'">
+			where content like concat('%',#{findValue},'%')
+		</if>
+		<if test="findKey=='subcon'">
+			where subject like concat('%',#{findValue},'%')
+			   or content like concat('%',#{findValue},'%')
+		</if>
+	</sql>
+
+	<select id="selectTotCnt" resultType="int">
+		select count(*) totCnt from board 
+		<include refid="find"/>
+	</select>
+
+	<select id="selectList" resultType="BoardDTO">
+		select * from board 
+		<include refid="find"/>
+		order by bnum desc 
+		limit #{startNo},#{perPage}
+	</select>
+	
+	<select id="selectOne" resultType="BoardDTO">
+		select * from board 
+		where bnum=#{bnum}
+	</select>
+	
+	<insert id="insert" parameterType="BoardDTO">
+		<selectKey keyProperty="bnum" resultType="int" order="BEFORE">
+			select ifnull(max(bnum)+1,1) from board
+		</selectKey>
+		insert into board(bnum,userid,subject,content,ip) 
+		values(#{bnum},#{userid},#{subject},#{content},#{ip})
+	</insert>
+	
+	<update id="update">
+		update board 
+		set subject=#{subject},content=#{content},modifydate=now()
+		where bnum=#{bnum}
+	</update>
+	
+	<delete id="delete">
+		delete from board 
+		where bnum=#{bnum}
+	</delete>
+	
+	<!-- 조회수+1 -->
+	<update id="updateReadcount">
+		update board 
+		set readcount=readcount+1 
+		where bnum=#{bnum}
+	</update>
+	
+	<!-- 좋아요+1 -->
+	<update id="updateLikecnt">
+		update board 
+		set likecnt=likecnt+1 
+		where bnum=#{bnum}
+	</update>
+	
+	<!-- 싫어요+1 -->
+	<update id="updateDisLikecnt">
+		update board 
+		set dislikecnt=dislikecnt+1 
+		where bnum=#{bnum}
+	</update>
+	
+	<!-- 좋아요-1 -->
+	<update id="updateLikecntMinus">
+		update board 
+		set likecnt=likecnt-1 
+		where bnum=#{bnum}
+	</update>
+	
+	<!-- 싫어요-1 -->
+	<update id="updateDisLikecntMinus">
+		update board 
+		set dislikecnt=dislikecnt-1 
+		where bnum=#{bnum}
+	</update>
+</mapper>

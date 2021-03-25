@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.project.volleyball.VleagueMapper">
+	<select id="selectList" resultType="VleagueDTO">
+		select date_format(v.vdate,'%Y-%m-%d') vdate,date_format(v.vdate,'%H:%i') vhour,v.vnum,
+			v.gubun,t1.tname home,v.homescore,v.awayscore,t2.tname away,s.sname scode,v.broad,v.round
+		from vleague v left outer join team t1 on v.home=t1.tcode
+		left outer join team t2 on v.away=t2.tcode
+		left outer join stadium s on v.scode=s.scode
+		where season=#{season} 
+		<if test="gubun!='0'.toString()">
+			and gubun=#{gubun}
+		</if>
+		<if test="sort=='vdate'">
+			and month(vdate)=#{vdate}
+		</if>
+		<if test="sort=='round'">
+			<choose>
+				<when test="round!='7'.toString()">
+					and round like concat(#{round},'%')
+				</when>
+				<otherwise>
+					and round not like '%Round%'
+				</otherwise>
+			</choose>
+		</if>
+		order by vdate
+	</select>
+	
+	<select id="selectOne" resultType="VleagueDTO">
+		select date_format(v.vdate,'%Y-%m-%d %H:%i') vdate,date_format(v.vdate,'%H') vhour,date_format(v.vdate,'%i') vmin,v.gubun,v.home,t1.tname homename,v.away,t2.tname awayname,v.broad
+		from vleague v left outer join team t1 on v.home=t1.tcode
+		left outer join team t2 on v.away=t2.tcode
+		where vdate like concat(#{vdate},'%') and gubun=#{gubun}
+	</select>
+
+</mapper>

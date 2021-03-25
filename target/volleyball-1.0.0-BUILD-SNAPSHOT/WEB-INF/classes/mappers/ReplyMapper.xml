@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.project.volleyball.ReplyMapper">
+	<insert id="insert">
+		<selectKey keyProperty="rnum" resultType="int" order="BEFORE">
+			select ifnull(max(rnum)+1,1) from reply
+		</selectKey>
+		insert into reply(rnum,bnum,userid,content,ip,restep,relevel) 
+		values(#{rnum},#{bnum},#{userid},#{content},#{ip},#{restep},#{relevel})
+	</insert>
+	
+	<!-- 기존 글순서+1 -->
+	<update id="updateRestep">
+		update reply 
+		set restep=restep+1 
+		where bnum=#{bnum} and restep>=#{restep}
+	</update>
+	
+	<update id="update">
+		update reply 
+		set content=#{content},modifydate=now()
+		where rnum=#{rnum}
+	</update>
+	
+	<select id="selectList" resultType="ReplyDTO">
+		select * from reply
+		where bnum=#{bnum} 
+		order by restep
+	</select>
+	
+	<select id="selectOne" resultType="ReplyDTO">
+		select * from reply 
+		where rnum=#{rnum}
+	</select>
+	
+	<delete id="delete">
+		delete from reply 
+		where rnum=#{rnum}
+	</delete>
+	
+	<delete id="deleteBoard">
+		delete from reply 
+		where bnum=#{bnum}
+	</delete>
+	
+	<!-- 댓글존재여부 -->
+	<select id="selectReplyCnt" resultType="int">
+		select count(*) cnt from reply 
+		where bnum=#{bnum} and restep=#{restep}+1 and relevel>#{relevel}
+	</select>
+	
+	<!-- 좋아요+1 -->
+	<update id="updateLikecnt">
+		update reply 
+		set likecnt=likecnt+1 
+		where rnum=#{rnum}
+	</update>
+	
+	<!-- 싫어요+1 -->
+	<update id="updateDisLikecnt">
+		update reply 
+		set dislikecnt=dislikecnt+1 
+		where rnum=#{rnum}
+	</update>
+	
+	<!-- 좋아요-1 -->
+	<update id="updateLikecntMinus">
+		update reply 
+		set likecnt=likecnt-1 
+		where rnum=#{rnum}
+	</update>
+	
+	<!-- 싫어요-1 -->
+	<update id="updateDisLikecntMinus">
+		update reply 
+		set dislikecnt=dislikecnt-1 
+		where rnum=#{rnum}
+	</update>
+</mapper>
