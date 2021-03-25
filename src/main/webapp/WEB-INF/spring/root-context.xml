@@ -30,7 +30,7 @@
 	<!-- 파일업로드 디렉토리 bean생성 -->
 	<!-- String saveDir="D:/khy/spring/upload"; -->
 	<bean id="saveDir" class="java.lang.String">
-		<constructor-arg value="C:/Users/nadal/spring/upload"/>
+		<constructor-arg value="/var/lib/tomcat9/webapps/upload"/>
 	</bean>
 	
 	<!-- 암호화위한 bean 생성 -->

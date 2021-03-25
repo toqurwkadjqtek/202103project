@@ -21,8 +21,8 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<!-- 서버의 이미지 폴더 지정 -->
-	<resources mapping="/localimg/**" location="file:///C:/Users/nadal/spring/vleague/" />
-	<resources mapping="/uploadimg/**" location="file:///C:/Users/nadal/spring/upload/" />
+	<resources mapping="/localimg/**" location="file:///var/lib/tomcat9/webapps/img" />
+	<resources mapping="/uploadimg/**" location="file:///var/lib/tomcat9/webapps/upload" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
