@@ -44,7 +44,7 @@
             }
             
             //웹소켓 객체 만드는 코드
-            ws=new WebSocket("ws://localhost:8081/volleyball/onair");
+            ws=new WebSocket("ws://118.67.132.215:8080/volleyball/onair");
             ws.onopen=function(event){
                 //if(event.data===undefined) return;
                 writeResponse("환영합니다. 매너 있는 채팅 부탁드립니다.");

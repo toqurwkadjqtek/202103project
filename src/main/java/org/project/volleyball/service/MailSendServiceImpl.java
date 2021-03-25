@@ -48,7 +48,7 @@ public class MailSendServiceImpl implements MailSendService{
         MimeMessage mail = mailSender.createMimeMessage();
         String mailContent = "<h1>[VB포럼 이메일 인증]</h1><br><p>"+nickname+"님 반갑습니다. 아래 링크를 클릭하여 이메일 인증을 완료해주세요.</p>"
                             //+ "<a href='http://localhost:8081/board/member/signUpConfirm?userid=" 
-                            + "<a href='http://localhost:8081/volleyball/member/signUpConfirm?userid=" 
+                            + "<a href='http://118.67.132.215:8080/volleyball/member/signUpConfirm?userid=" 
                             + userid + "&authKey=" + authKey + "' target='_blenk'>이메일 인증 확인(click)</a>";
 
         try {

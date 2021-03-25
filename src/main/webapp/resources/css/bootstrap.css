@@ -7231,6 +7231,9 @@ fieldset[disabled] .navbar-custom .btn-link:focus {
 .file-padding{
 	padding-top: 20px;
 }
+.footer-padding{
+	padding-bottom: 30px;
+}
 
 /* custom end */
 /*# sourceMappingURL=bootstrap.css.map */

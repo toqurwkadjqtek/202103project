@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!-- Footer -->
-<footer class="container-fluid bg-4 text-center">
+<footer class="container-fluid bg-4 text-center footer-padding">
 	<hr>
-	<a href="https://github.com/toqurwkadjqtek/202103project.git">https://github.com/toqurwkadjqtek/202103project.git</a> 
+	<a href="https://github.com/toqurwkadjqtek/202103project.git">https://github.com/toqurwkadjqtek/202103project.git</a>
 </footer>

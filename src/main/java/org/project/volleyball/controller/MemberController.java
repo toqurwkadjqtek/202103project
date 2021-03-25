@@ -42,7 +42,7 @@ public class MemberController {
 			rdAtt.addFlashAttribute("msg",resultMap.get("msg"));
 			return "redirect:/"; //절대경로
 		}else {
-			return "redirect:/member/add";
+			return "redirect:/";
 		}
 		
 	}
@@ -106,14 +106,6 @@ public class MemberController {
 		return mdto;
 	}
 	
-	//수정폼으로
-	@RequestMapping(value="modify",method=RequestMethod.GET)
-	public String modify(HttpSession session,Model model) throws Exception {
-		String userid=(String)session.getAttribute("userid");
-		MemberDTO mdto=mservice.selectOne(userid);
-		model.addAttribute("mdto",mdto);
-		return "/member/modify";
-	}
 	
 	@RequestMapping(value="modify",method=RequestMethod.POST)
 	public String modify(MemberDTO mdto,RedirectAttributes rdAtt,HttpSession session) throws Exception {
@@ -127,7 +119,7 @@ public class MemberController {
 			session.setAttribute("nickname",mdto.getNickname());
 			return "redirect:/";
 		}
-		return "redirect:/member/modify";
+		return "redirect:/";
 	}
 	
 	@ResponseBody

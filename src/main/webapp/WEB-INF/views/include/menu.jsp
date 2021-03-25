@@ -263,7 +263,7 @@
 			$('#modifyZip').val(mdto.zip);
 			$('#modifyAddr1').val(mdto.addr1);
 			$('#modifyAddr2').val(mdto.addr2);
-			$('modifyFilename').prepend(mdto.filename);
+			$('#modifyFilename').prepend(mdto.filename);
 			$('#infoModal').modal('hide');
 			$('#modifyModal').modal('show');
 		});
